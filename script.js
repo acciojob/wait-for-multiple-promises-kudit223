@@ -3,10 +3,10 @@ const body=document.querySelector('#output');
 
 let arrRandomTime=[];
 const min=1;
-const max=3;
+const max=4;
 let maxValue=0;
 for(let i=0;i<3;i++){
-	let val=Math.round(Math.random()*(max-min)+min);
+	let val=(Math.random()*(max-min)+min).toFixed(3);
     maxValue=Math.max(maxValue,val)
 	arrRandomTime.push(val);
 }
@@ -16,7 +16,7 @@ const promise2=()=>new Promise(resolve=>setTimeout(()=>resolve(arrRandomTime[1])
 const promise3=()=>new Promise(resolve=>setTimeout(()=>resolve(arrRandomTime[2]),arrRandomTime[2]*1000));
 
 console.log(arrRandomTime)
-body.innerHTML=`<tr><td colspan=2 style="text-align:center;font-weight:bold;font-size:20px">Loading....</td></tr>`;
+body.innerHTML=`<tr id='loading'><td colspan=2 style="text-align:center;font-weight:bold;font-size:20px">Loading...</td></tr>`;
 
 Promise.all([promise1(),promise2(),promise3()])
 .then((data)=>{
@@ -24,7 +24,7 @@ Promise.all([promise1(),promise2(),promise3()])
     data.forEach((item,i)=>{
          body.innerHTML+=`<tr>
             <td>Promise ${i}</td>
-            <td>${item}</td>
+            <td>${Math.floor(item)}</td>
     </tr>`
     })
    body.innerHTML+=`<tr>
